@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import AccountScreen from './src/screens/AccountScreen';
+import { Provider } from './src/context/AccountContext';
+import CreateAccountScreen from './src/screens/CreateAccountScreen';
+import GamesScreen from './src/screens/GamesScreen';
+import GameScreen from './src/screens/GameScreen';
+import DragAndDropShapeGame from './src/screens/games/DragAndDropShapeGame';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const naviagtor = createStackNavigator({
+  Home: HomeScreen,
+  Account: AccountScreen,
+  CreateAccount: CreateAccountScreen,
+  Games: GamesScreen,
+  Game: GameScreen, 
+  DragAndDrop: DragAndDropShapeGame
+}, {
+  headerMode: 'none',
+  initialRouteName: 'Home'
 });
+
+const App =  createAppContainer(naviagtor);
+
+export default () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  )
+};
